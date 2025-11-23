@@ -67,14 +67,14 @@ static void VS_CC pickframesCreate(const VSMap *in, VSMap *out, void *userData, 
         d->offsets[i] = vsapi->mapGetIntSaturated(in, "indices", i, 0);
 
         if (d->offsets[i] < 0 || d->offsets[i] >= d->cycle)
-            RETERROR("pickframes: invalid offset specified");
+            RETERROR("pickframes: indices contains out-of-range value");
     }
 
     if (inputnframes)
         vi.numFrames = d->num;
 
     if (vi.numFrames == 0)
-        RETERROR("pickframes: no frames to output, all offsets outside available frames");
+        RETERROR("pickframes: no frames to output, all indices outside available frames");
 
     VSFilterDependency deps[] = {{d->node, rpGeneral}};
     vsapi->createVideoFilter(out, "pickframes", &vi, pickframesGetframe, filterFree<pickframesData>, fmParallel, deps, 1, d.release(), core);
