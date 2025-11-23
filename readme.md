@@ -10,5 +10,5 @@ so there's
         }
     }
 ```
-in original SelectEvery, worst case scenario it runs num\*num times.
+in original SelectEvery, worst case scenario it runs num\*(num-1)/2 times.
 assuming there will be duplicates just doesn't really hurt what we are doing.
