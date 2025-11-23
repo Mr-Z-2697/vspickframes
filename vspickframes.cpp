@@ -70,12 +70,8 @@ static void VS_CC pickframesCreate(const VSMap *in, VSMap *out, void *userData, 
             RETERROR("pickframes: invalid offset specified");
     }
 
-    if (inputnframes) {
-        vi.numFrames = (inputnframes / d->cycle) * d->num;
-        for (int i = 0; i < d->num; i++)
-            if (d->offsets[i] < inputnframes % d->cycle)
-                vi.numFrames++;
-    }
+    if (inputnframes)
+        vi.numFrames = d->num;
 
     if (vi.numFrames == 0)
         RETERROR("pickframes: no frames to output, all offsets outside available frames");
